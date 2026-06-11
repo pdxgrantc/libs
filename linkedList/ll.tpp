@@ -1,5 +1,5 @@
-#ifndef VEC_TPP
-#define VEC_TPP
+#ifndef LL_TPP
+#define LL_TPP
 
 #include <iostream>
 #include <stdexcept>

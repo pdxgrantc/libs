@@ -9,9 +9,9 @@ RM = rm -f
 RMDIR = rm -rf
 
 # Files
-TARGET = $(BIN_DIR)/vec
+TARGET = $(BIN_DIR)/queue
 
-SOURCES = main.cpp helper.cpp
+SOURCES = main.cpp
 
 OBJECT_NAMES = $(SOURCES:.cpp=.o)
 OBJECTS = $(patsubst %,$(OBJ_DIR)/%,$(OBJECT_NAMES))
