@@ -8,8 +8,8 @@ class Queue
 {
 private:
     int length;
-    Item<T> *head;      // First item in the list
-    Item<T> *tail;      // Last item in the list
+    Item<T> *head; // First item in the list
+    Item<T> *tail; // Last item in the list
 
 public:
     Queue();
@@ -19,8 +19,6 @@ public:
     int len();
 };
 
-
 #include "queue.tpp"
 
 #endif
-
