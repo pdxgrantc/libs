@@ -28,7 +28,7 @@ Stack<T>::~Stack()
 }
 
 /*
- * @brief Queue destructor. This will not free any data
+ * @brief Stack destructor. This will not free any data
  * @param newData data to be stored in the queue.
  */
 template <typename T>
@@ -47,8 +47,7 @@ void Stack<T>::push(T newData)
 }
 
 /*
- * @brief Queue destructor. This will not free any data
- * @param newData data to be stored in the queue.
+ * @brief Stack destructor. This will not free any data stored in the queue.
  */
 template <typename T>
 T Stack<T>::pop()
