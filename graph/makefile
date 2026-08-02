@@ -3,53 +3,42 @@ BUILD_DIR = build
 OBJ_DIR = $(BUILD_DIR)/obj
 BIN_DIR = $(BUILD_DIR)/bin
 
-# Toolchain
+# Compiler
 CXX = g++
-RM = rm -f
-RMDIR = rm -rf
+OPT = -O1
+CXXFLAGS = -std=c++17 -g $(OPT) -MMD -MP
 
-# Files
-TARGET = $(BIN_DIR)/vec
+# Source files
+SOURCES = main.cpp
 
-SOURCES = main.cpp helper.cpp
+# Target
+TARGET = $(BIN_DIR)/graph
 
-OBJECT_NAMES = $(SOURCES:.cpp=.o)
-OBJECTS = $(patsubst %,$(OBJ_DIR)/%,$(OBJECT_NAMES))
+# Derived files
+OBJECTS = $(addprefix $(OBJ_DIR)/,$(SOURCES:.cpp=.o))
+DEPS = $(OBJECTS:.o=.d)
 
-# Flags
-WFLAGS = #-Wall -Wextra -Werror -Wshadow
-CXXFLAGS = $(WFLAGS) -Og -g -std=c++17
-LDFLAGS =
-
-# Build
-.PHONY: all clean run mrun val
+.PHONY: all clean mrun val
 
 all: $(TARGET)
 
-# Linking
 $(TARGET): $(OBJECTS)
-	@mkdir -p $(dir $@)
-	$(CXX) $(LDFLAGS) $^ -o $@
+	@mkdir -p $(BIN_DIR)
+	$(CXX) $^ -o $@
 
-# Compiling
 $(OBJ_DIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-run: $(TARGET)
+mrun: $(TARGET)
+	@clear
 	./$(TARGET)
 
-mrun:
-	clear
-	$(MAKE) clean
-	$(MAKE)
-	./$(TARGET)
-
-val:
-	clear
-	$(MAKE) clean
-	$(MAKE)
+val: $(TARGET)
+	@clear
 	valgrind ./$(TARGET)
 
 clean:
-	$(RMDIR) $(BUILD_DIR)
+	rm -rf $(BUILD_DIR)
+
+-include $(DEPS)
